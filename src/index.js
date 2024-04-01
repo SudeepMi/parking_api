@@ -36,6 +36,9 @@ async function startServer() {
   try {
     await connectToDB();
     const PORT = process.env.PORT;
+    app.use("/",(req,res) => {
+      res.status(200).json({msg:"Hello from parking api server"})
+    })
     app.listen(PORT, () => {
       console.log(`Server is running at http://localhost:${PORT}`);
     });
