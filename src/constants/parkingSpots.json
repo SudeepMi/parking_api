@@ -1,0 +1,156 @@
+[
+    {
+      "name": "Central Park Plaza Garage",
+      "description": "Multi-level indoor parking with excellent security featutres.",
+      "location": "Central Park Plaza, Downtown",
+      "available": true,
+      "spotType": "Indoor",
+      "pricePerHour": 10,
+      "owner":"651649a12d78aaf1abcf5155",
+      "capacity": {
+        "car": 200,
+        "bike": 40
+      },
+      "features": ["Security Cameras", "EV Charging"],
+     "imageUrls": [
+        "https://images.pexels.com/photos/1000633/pexels-photo-1000633.jpeg?auto=compress&cs=tinysrgb&w=600"
+      ]
+    },
+    {
+      "name": "Harbor View Open Lot",
+      "description": "Spacious open parking lot with stunning views of the harbor.",
+      "location": "Harbor District, Waterfront",
+      "available": true,
+      "spotType": "Open",
+      "pricePerHour": 5,
+      "owner":"651649a12d78aaf1abcf5155",
+      "capacity": {
+        "car": 150,
+        "bike": 20
+      },
+      "features": ["Scenic View", "Security Patrolling"],
+     "imageUrls": [
+        "https://images.pexels.com/photos/2833714/pexels-photo-2833714.jpeg?auto=compress&cs=tinysrgb&w=600"
+      ]
+    },
+    {
+      "name": "Green Energy Charging Hub",
+      "description": "Dedicated electric vehicle charging station with solar-powered panels.",
+      "location": "Eco Street, Green Valley",
+      "available": true,
+      "spotType": "Indoor",
+      "pricePerHour": 12,
+      "owner":"651649a12d78aaf1abcf5155",
+      "capacity": {
+        "car": 20,
+        "bike": 10
+      },
+      "features": ["EV Charging", "Solar-Powered"],
+     "imageUrls": [
+        "https://images.pexels.com/photos/1756957/pexels-photo-1756957.jpeg?auto=compress&cs=tinysrgb&w=600"
+      ]
+    },
+    {
+      "name": "TechCorp Office Garage",
+      "description": "Covered parking exclusively for TechCorp employees.",
+      "location": "TechCorp Campus, Tech District",
+      "available": true,
+      "spotType": "Open",
+      "pricePerHour": 7,
+      "owner":"651649a12d78aaf1abcf5155",
+      "capacity": {
+        "car": 80,
+        "bike": 10
+      },
+      "features": ["Covered","Security Access"],
+     "imageUrls": [
+        "https://jooinn.com/images/empty-parking-1.png"
+      ]
+    },
+    {
+      "name": "Bike Enthusiast Zone",
+      "description": "Dedicated area for motorcycle and bicycle parking with repair stations.",
+      "location": "Bike Street, Cyclist's Haven",
+      "available": true,
+      "spotType": "Open",
+      "pricePerHour": 3,
+      "owner":"651649a12d78aaf1abcf5155",
+      "capacity": {
+        "car": 20,
+        "bike": 50
+      },
+      "features": ["Motorcycle & Bicycle Only"],
+     "imageUrls": [
+        "https://th.bing.com/th/id/OIP.SaK-T8jEfu3FWinvhBnS0AAAAA?pid=ImgDet&rs=1"
+      ]
+    },
+    {
+      "name": "Skyline Rooftop Park",
+      "description": "Rooftop parking with breathtaking views of the city skyline.",
+      "location": "Skyline Tower, City Center",
+      "available": true,
+      "spotType": "Indoor",
+      "pricePerHour": 9,
+      "owner":"651649a12d78aaf1abcf5155",
+      "capacity": {
+        "car": 12,
+        "bike": 20
+      },
+      "features": ["Scenic View", "Elevator Access"],
+     "imageUrls": [
+        "https://www.associationalert.biz/wp-content/uploads/sites/630/2018/01/Parking-Garage-2200x1467.jpeg"
+      ]
+    },
+    {
+      "name": "Accessible Parking Plaza",
+      "description": "Handicapped accessible parking spaces with ramps and assistance services.",
+      "location": "Accessibility Avenue, Inclusivity Town",
+      "available": true,
+      "spotType": "Open",
+      "pricePerHour": 4,
+      "owner":"651649a12d78aaf1abcf5155",
+      "capacity": {
+        "car": 10,
+        "bike": 22
+      },
+      "features": ["Close to Shopping", "Solar-Powered"],
+     "imageUrls": [
+        "https://images.pexels.com/photos/2220292/pexels-photo-2220292.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      ]
+    },
+    {
+      "name": "Trucker's Haven",
+      "description": "Specialized parking zone for trucks and large vehicles.",
+      "location": "Truckers Lane, Transport Hub",
+      "available": true,
+      "spotType": "Open",
+      "pricePerHour": 15,
+      "owner":"651649a12d78aaf1abcf5155",
+      "capacity": {
+        "car": 60,
+        "bike": 120
+      },
+      "features": ["Scenic View"],
+     "imageUrls": [
+        "https://images.pexels.com/photos/2655864/pexels-photo-2655864.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      ]
+    },
+    {
+      "name": "Guest Welcome Lot",
+      "description": "Designated parking area for visitors with a warm welcome.",
+      "location": "Hospitality Street, Welcome City",
+      "available": true,
+      "spotType": "Open",
+      "pricePerHour": 0,
+      "owner":"651649a12d78aaf1abcf5155",
+      "capacity": {
+        "car": 30,
+        "bike": 90
+      },
+      "features": ["Guest Parking","Close to Shopping"],
+     "imageUrls": [
+        "https://images.pexels.com/photos/2868985/pexels-photo-2868985.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      ]
+    }
+  ]
+  
