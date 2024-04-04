@@ -22,6 +22,10 @@ const parkingSpotSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    coordinates:{
+      type: String,
+      required: true
+    },
     capacity: {
       car: {
         type: Number,

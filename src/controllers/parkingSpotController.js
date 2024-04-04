@@ -5,7 +5,7 @@ import ParkingSpot from "../models/ParkingSpot.js";
 export const createParkingSpot = async (req, res) => {
   try {
     const ownerId = req.user.userId;
-    const { name, description, location, spotType, pricePerHour, capacity, features, imageUrls } = req.body;
+    const { name, description, location, spotType, pricePerHour, capacity, features, imageUrls, coordinates } = req.body;
 
     if (!name || !location || !spotType || !pricePerHour || !capacity) {
       return res.status(400).json({ message: "Missing required fields" });
