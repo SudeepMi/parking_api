@@ -179,32 +179,34 @@ export const getknn = async (req, res) => {
   try {
     // Fetch parking spot data from your schema
     const parkingSpots = await ParkingSpot.find({});
-    const userCords = req.user.coordinates;
+    const userCords = req.query.cords;
+    if(userCords){
 
-    // Function to find k-nearest neighbors
-    function kNearestNeighbors(k, newData) {
-      // Calculate distances from newData to all points in parkingSpots
-      const distances = parkingSpots.map(({ coordinates, name }) => ({
-        name,
-        distance: getDistance(newData.coordinates, coordinates),
-      }));
-
-      // Sort distances in ascending order
-      distances.sort((a, b) => a.distance - b.distance);
-
-      // Get k-nearest neighbors
-      const nearestNeighbors = distances.slice(0, k);
-
-      return nearestNeighbors;
+      // Function to find k-nearest neighbors
+      function kNearestNeighbors(k, newData) {
+        // Calculate distances from newData to all points in parkingSpots
+        const distances = parkingSpots.map(({ coordinates, name }) => ({
+          name,
+          distance: getDistance(newData.coordinates, coordinates),
+        }));
+  
+        // Sort distances in ascending order
+        distances.sort((a, b) => a.distance - b.distance);
+  
+        // Get k-nearest neighbors
+        const nearestNeighbors = distances.slice(0, k);
+  
+        return nearestNeighbors;
+      }
+  
+      // Example usage
+      const newData = { coordinates: userCords?.split(","), label: "user location" };
+      const k = 3;
+      const predictedSpots = kNearestNeighbors(k, newData);
+  
+  
+      res.status(200).json({ predictedSpots });
     }
-
-    // Example usage
-    const newData = { coordinates: userCords?.split(","), label: "user location" };
-    const k = 3;
-    const predictedSpots = kNearestNeighbors(k, newData);
-
-
-    res.status(200).json({ predictedSpots });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
