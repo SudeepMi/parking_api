@@ -148,12 +148,10 @@ export const deleteParking = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const parking = await Parking.findById(id);
+    const parking = await Parking.findByIdAndDelete(id);
     if (!parking) {
       return res.status(404).json({ message: "Parking entry not found" });
     }
-
-    await parking.remove();
     res.status(200).json({ message: "Parking entry deleted successfully" });
   } catch (error) {
     console.error(error);
