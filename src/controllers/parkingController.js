@@ -187,7 +187,7 @@ export const getknn = async (req, res) => {
         // Calculate distances from newData to all points in parkingSpots
         const distances = parkingSpots.map(({ coordinates, name }) => ({
           name,
-          distance: getDistance(newData.coordinates, coordinates),
+          distance: getDistance(newData.coordinates, coordinates[0]),
         }));
   
         // Sort distances in ascending order
