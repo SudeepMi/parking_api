@@ -173,23 +173,20 @@ export const deleteParking = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+import ParkingSpot from './models/parkingSpot'; // Import your Mongoose schema/model
 
 export const getknn = async (req, res) => {
   try {
-    const location_points = [
-      { coords: [27.6853, 85.3317], label: "Sankhamul" },
-      { coords: [27.6771, 85.3171], label: "Labim Mall" },
-      { coords: [27.7183, 85.35], label: "KL Tower" },
-      { coords: [27.7097, 85.3191], label: "Rising Mall" },
-      { coords: [27.7105, 85.3179], label: "Sherpa Mall" },
-    ];
+    // Fetch parking spot data from your schema
+    const parkingSpots = await ParkingSpot.find({});
+    const userCords = req.user.coordinates;
 
     // Function to find k-nearest neighbors
     function kNearestNeighbors(k, newData) {
-      // Calculate distances from newData to all points in trainingData
-      const distances = location_points.map(({ coords, label }) => ({
-        label,
-        distance: getDistance(newData.coords, coords),
+      // Calculate distances from newData to all points in parkingSpots
+      const distances = parkingSpots.map(({ coordinates, name }) => ({
+        name,
+        distance: getDistance(newData.coordinates, coordinates),
       }));
 
       // Sort distances in ascending order
@@ -198,34 +195,19 @@ export const getknn = async (req, res) => {
       // Get k-nearest neighbors
       const nearestNeighbors = distances.slice(0, k);
 
-      // Count occurrences of each label
-      const labelCounts = nearestNeighbors.reduce((counts, { label }) => {
-        counts[label] = (counts[label] || 0) + 1;
-        return counts;
-      }, {});
-
-      // Find the majority label
-      let majorityLabel = null;
-      let maxCount = 0;
-      for (const label in labelCounts) {
-        if (labelCounts[label] > maxCount) {
-          majorityLabel = label;
-          maxCount = labelCounts[label];
-        }
-      }
-
       return nearestNeighbors;
     }
 
     // Example usage
-    const newData = { coords: [27.6992, 85.3126], label: "Civil Mall" };
+    const newData = { coordinates: userCords?.split(","), label: "user location" };
     const k = 3;
-    const predictedLabel = kNearestNeighbors(k, newData);
-    console.log("Predicted label:", predictedLabel);
+    const predictedSpots = kNearestNeighbors(k, newData);
 
-    res.status(200).json({ predictedLabel });
+
+    res.status(200).json({ predictedSpots });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
