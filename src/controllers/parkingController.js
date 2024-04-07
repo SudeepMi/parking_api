@@ -1,6 +1,7 @@
 import Parking from "../models/Parking.js";
 import Payment from "../models/Payment.js";
 import Reservation from "../models/Reservation.js";
+import { getDistance } from "geolib";
 
 export const enterParking = async (req, res) => {
   const admin = req.user.userId;
@@ -60,12 +61,10 @@ export const exitParking = async (req, res) => {
     parking.totalAmount = parseFloat(parking.totalAmount.toFixed(2));
 
     await parking.save();
-    res
-      .status(200)
-      .json({
-        message: "Parking updated successfully. Payment is pending.",
-        parking,
-      });
+    res.status(200).json({
+      message: "Parking updated successfully. Payment is pending.",
+      parking,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -169,6 +168,62 @@ export const deleteParking = async (req, res) => {
       return res.status(404).json({ message: "Parking entry not found" });
     }
     res.status(200).json({ message: "Parking entry deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const getknn = async (req, res) => {
+  try {
+    const location_points = [
+      { coords: [27.6853, 85.3317], label: "Sankhamul" },
+      { coords: [27.6771, 85.3171], label: "Labim Mall" },
+      { coords: [27.7183, 85.35], label: "KL Tower" },
+      { coords: [27.7097, 85.3191], label: "Rising Mall" },
+      { coords: [27.7105, 85.3179], label: "Sherpa Mall" },
+    ];
+
+    // Function to find k-nearest neighbors
+    function kNearestNeighbors(k, newData) {
+      // Calculate distances from newData to all points in trainingData
+      const distances = location_points.map(({ coords, label }) => ({
+        label,
+        distance: getDistance(newData.coords, coords),
+      }));
+
+      // Sort distances in ascending order
+      distances.sort((a, b) => a.distance - b.distance);
+
+      // Get k-nearest neighbors
+      const nearestNeighbors = distances.slice(0, k);
+
+      // Count occurrences of each label
+      const labelCounts = nearestNeighbors.reduce((counts, { label }) => {
+        counts[label] = (counts[label] || 0) + 1;
+        return counts;
+      }, {});
+
+      // Find the majority label
+      let majorityLabel = null;
+      let maxCount = 0;
+      for (const label in labelCounts) {
+        if (labelCounts[label] > maxCount) {
+          majorityLabel = label;
+          maxCount = labelCounts[label];
+        }
+      }
+
+      return nearestNeighbors;
+    }
+
+    // Example usage
+    const newData = { coords: [27.6992, 85.3126], label: "Civil Mall" };
+    const k = 3;
+    const predictedLabel = kNearestNeighbors(k, newData);
+    console.log("Predicted label:", predictedLabel);
+
+    res.status(200).json({ predictedLabel });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

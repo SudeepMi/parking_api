@@ -8,6 +8,7 @@ import {
   getTotal,
   validatePaymentAndExit,
   getParkingByUser,
+  getknn,
 } from "../controllers/parkingController.js";
 
 import authenticate from "../middlewares/authMiddleware.js";
@@ -18,10 +19,11 @@ const router = express.Router();
 router.get("/u/p", authenticate, getParkingByUser);
 router.put("/:id", authenticate, exitParking);
 
-router.use(authenticate, authorize);
+// router.use(authenticate, authorize);
 
 router.post("/", enterParking);
 router.get("/", getParkings);
+router.get("/knn-result", getknn);
 router.get("/total", getTotal);
 router.get("/:id", getParking);
 
