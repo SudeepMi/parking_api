@@ -1,4 +1,5 @@
 import Parking from "../models/Parking.js";
+import ParkingSpot from "../models/ParkingSpot.js";
 import Payment from "../models/Payment.js";
 import Reservation from "../models/Reservation.js";
 import { getDistance } from "geolib";
@@ -173,7 +174,6 @@ export const deleteParking = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-import ParkingSpot from './models/parkingSpot'; // Import your Mongoose schema/model
 
 export const getknn = async (req, res) => {
   try {
