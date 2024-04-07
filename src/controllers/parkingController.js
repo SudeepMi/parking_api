@@ -201,7 +201,7 @@ export const getknn = async (req, res) => {
   
       // Example usage
       const newData = { coordinates: userCords?.split(","), label: "user location" };
-      const k = 3;
+      const k = 6;
       const predictedSpots = kNearestNeighbors(k, newData);
   
   

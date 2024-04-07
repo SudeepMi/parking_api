@@ -11,6 +11,7 @@ import {
   getParkingSpots,
   updateParkingSpot,
   updateAvaliability,
+  handleFeedback,
 } from "../controllers/parkingSpotController.js";
 
 const router = express.Router();
@@ -25,5 +26,7 @@ router.put("/:id/avaliability", authenticate, authorize, updateAvaliability);
 
 router.put("/:id", authenticate, authorize, updateParkingSpot);
 router.delete("/:id", authenticate, authorize, deleteParkingSpot);
+router.post("/feeback", handleFeedback);
+
 
 export default router;

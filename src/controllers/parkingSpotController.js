@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 import ParkingSpot from "../models/ParkingSpot.js";
+import Feedback from "../models/Feedback.js";
 
 export const createParkingSpot = async (req, res) => {
   try {
@@ -149,3 +150,19 @@ export const deleteParkingSpot = async (req, res) => {
     res.status(500).json({ message: "Error deleting parking spot", error: error.message });
   }
 };
+
+
+export const handleFeedback = async (req,res)=> {
+
+  try {
+    const _feedback = await Feedback.create(req.body)
+    if(_feedback){
+      res.json(_feedback);
+    }else{
+      res.status(500).json("error while creating feedback")
+    }
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
