@@ -23,7 +23,7 @@ router.put("/:id", authenticate, exitParking);
 
 router.post("/", enterParking);
 router.get("/", getParkings);
-router.get("/knn-result", getknn);
+router.get("/knn",authenticate, getknn);
 router.get("/total", getTotal);
 router.get("/:id", getParking);
 
