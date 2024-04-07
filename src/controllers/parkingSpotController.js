@@ -21,6 +21,7 @@ export const createParkingSpot = async (req, res) => {
       features,
       imageUrls,
       owner: ownerId,
+      coordinates
     });
 
     await parkingSpot.save();
