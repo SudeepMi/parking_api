@@ -214,12 +214,12 @@ export const getknn = async (req, res) => {
         }
       }
 
-      return majorityLabel;
+      return nearestNeighbors;
     }
 
     // Example usage
     const newData = { coords: [27.6992, 85.3126], label: "Civil Mall" };
-    const k = 2;
+    const k = 3;
     const predictedLabel = kNearestNeighbors(k, newData);
     console.log("Predicted label:", predictedLabel);
 
