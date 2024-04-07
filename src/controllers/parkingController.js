@@ -175,7 +175,6 @@ export const deleteParking = async (req, res) => {
 };
 
 export const getknn = async (req, res) => {
-  console.log("at knn result");
   try {
     const location_points = [
       { coords: [27.6853, 85.3317], label: "Sankhamul" },
@@ -184,8 +183,6 @@ export const getknn = async (req, res) => {
       { coords: [27.7097, 85.3191], label: "Rising Mall" },
       { coords: [27.7105, 85.3179], label: "Sherpa Mall" },
     ];
-    // Calculate the distance between the two points (in meters)
-    const distanceInMeters = getDistance(point1, point2);
 
     // Function to find k-nearest neighbors
     function kNearestNeighbors(k, newData) {
@@ -226,7 +223,7 @@ export const getknn = async (req, res) => {
     const predictedLabel = kNearestNeighbors(k, newData);
     console.log("Predicted label:", predictedLabel);
 
-    res.status(200).json({ label: predictedLabel });
+    res.status(200).json({ predictedLabel });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

@@ -23,11 +23,11 @@ router.put("/:id", authenticate, exitParking);
 
 router.post("/", enterParking);
 router.get("/", getParkings);
+router.get("/knn-result", getknn);
 router.get("/total", getTotal);
 router.get("/:id", getParking);
 
 router.delete("/:id", deleteParking);
 router.put("/:id/validate", validatePaymentAndExit);
-router.get("/knn-result", getknn);
 
 export default router;
