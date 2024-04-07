@@ -14,7 +14,9 @@ export const enterParking = async (req, res) => {
 
     await parking.save();
 
-    res.status(201).json({ message: "Parking entry created successfully", parking });
+    res
+      .status(201)
+      .json({ message: "Parking entry created successfully", parking });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -31,7 +33,9 @@ export const exitParking = async (req, res) => {
     }
 
     if (parking.status === "Exited") {
-      return res.status(400).json({ message: "Parking already marked as exited" });
+      return res
+        .status(400)
+        .json({ message: "Parking already marked as exited" });
     }
 
     parking.exitedTime = Date.now();
@@ -39,19 +43,29 @@ export const exitParking = async (req, res) => {
 
     // parking.duration is calculated as the difference between parking.exitedTime and parking.enteredTime in milliseconds.
     // To convert this to minutes, you're dividing by (1000 * 60). This calculation results in the duration of the parking session in minutes.
-    parking.duration = Math.floor((parking.exitedTime - parking.enteredTime) / (1000 * 60));
+    parking.duration = Math.floor(
+      (parking.exitedTime - parking.enteredTime) / (1000 * 60)
+    );
 
-    const reservation = await Reservation.findById(parking.reservation).populate("parkingSpot");
+    const reservation = await Reservation.findById(
+      parking.reservation
+    ).populate("parkingSpot");
 
     // Calculate the parking.totalAmount by multiplying the duration in minutes by the parking spot's hourly rate (pricePerHour).
     // This calculation gives you the total cost of parking for that duration.
-    parking.totalAmount = (parking.duration / 60) * reservation.parkingSpot.pricePerHour;
+    parking.totalAmount =
+      (parking.duration / 60) * reservation.parkingSpot.pricePerHour;
 
     // Limit the totalAmount to two decimal places using toFixed()
     parking.totalAmount = parseFloat(parking.totalAmount.toFixed(2));
 
     await parking.save();
-    res.status(200).json({ message: "Parking updated successfully. Payment is pending.", parking });
+    res
+      .status(200)
+      .json({
+        message: "Parking updated successfully. Payment is pending.",
+        parking,
+      });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -132,7 +146,9 @@ export const getParkingByUser = async (req, res) => {
       })
       .populate("payment");
 
-    const filteredParking = parking.filter((entry) => entry.reservation.customer.toString() === userId);
+    const filteredParking = parking.filter(
+      (entry) => entry.reservation.customer.toString() === userId
+    );
     if (filteredParking.length === 0) {
       return res.status(404).json({ message: "Parking entry not found" });
     }
