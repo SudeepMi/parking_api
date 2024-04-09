@@ -176,8 +176,9 @@ export const deleteParking = async (req, res) => {
 };
 
 const CustomgetDistance = (userLocation, destination)=>{
-  let [u_lat, u_long] = userLocation.split(",");
-  let [d_lat, d_long] = destination.split(",");
+
+  let [u_lat, u_long] = destination.split(",");
+  let [d_lat, d_long] = userLocation;
   u_lat = parseFloat(u_lat) * (Math.PI / 180);
   u_long = parseFloat(u_long) * (Math.PI / 180);
   d_lat = d_lat * (Math.PI / 180);
