@@ -208,9 +208,10 @@ export const getknn = async (req, res) => {
       // Function to find k-nearest neighbors
       function kNearestNeighbors(k, newData) {
         // Calculate distances from newData to all points in parkingSpots
-        const distances = parkingSpots.map(({ coordinates, name }) => ({
-          name,
-          distance: CustomgetDistance(newData.coordinates, coordinates[0]),
+        const distances = parkingSpots.map((spot) => ({
+        
+          distance: CustomgetDistance(newData.coordinates, spot.coordinates[0]),
+          ...spot._doc,
         }));
         
   
@@ -229,7 +230,7 @@ export const getknn = async (req, res) => {
       const predictedSpots = kNearestNeighbors(k, newData);
   
   
-      res.status(200).json({ predictedSpots });
+      res.status(200).json(predictedSpots);
     }
   } catch (error) {
     console.error(error);
