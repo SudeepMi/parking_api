@@ -78,7 +78,7 @@ export const validatePaymentAndExit = async (req, res) => {
   try {
     const parking = await Parking.findById(id);
     if (!parking) {
-      return res.status(404).json({ message: "Parking entry not found" });
+      return res.status(404).json({ message: "Parking entry not  found" });
     }
 
     const payment = await Payment.findOne({ parking: id });
@@ -176,25 +176,28 @@ export const deleteParking = async (req, res) => {
 };
 
 const CustomgetDistance = (userLocation, destination)=>{
+  if(destination){
 
-  let [u_lat, u_long] = destination.split(",");
-  let [d_lat, d_long] = userLocation;
-  u_lat = parseFloat(u_lat) * (Math.PI / 180);
-  u_long = parseFloat(u_long) * (Math.PI / 180);
-  d_lat = d_lat * (Math.PI / 180);
-  d_long = d_long * (Math.PI / 180);
-
-  let dlon = d_long - u_long;
-  let dlat = d_lat - u_lat;
-  let a =
-    Math.pow(Math.sin(dlat / 2), 2) +
-    Math.cos(u_lat) * Math.cos(d_lat) * Math.pow(Math.sin(dlon / 2), 2);
-
-  let c = 2 * Math.asin(Math.sqrt(a));
-  // Radius of earth in kilometers
-  let r = 6371;
-  // calculate the res
-  return (c * r).toFixed(2);
+    let [u_lat, u_long] = destination.split(",");
+    let [d_lat, d_long] = userLocation;
+    u_lat = parseFloat(u_lat) * (Math.PI / 180);
+    u_long = parseFloat(u_long) * (Math.PI / 180);
+    d_lat = d_lat * (Math.PI / 180);
+    d_long = d_long * (Math.PI / 180);
+  
+    let dlon = d_long - u_long;
+    let dlat = d_lat - u_lat;
+    let a =
+      Math.pow(Math.sin(dlat / 2), 2) +
+      Math.cos(u_lat) * Math.cos(d_lat) * Math.pow(Math.sin(dlon / 2), 2);
+  
+    let c = 2 * Math.asin(Math.sqrt(a));
+    // Radius of earth in kilometers
+    let r = 6371;
+    // calculate the res
+    return (c * r).toFixed(2);
+  }
+  return 0;
 
 }
 
