@@ -14,7 +14,7 @@ export const createPayment = async (req, res) => {
     // Parse amount into a float
     amount = parseFloat(amount);
 
-    if (!amount || isNaN(amount) || !parkingId) {
+    if (!isNaN(amount) || !parkingId) {
       return res.status(400).json({ error: "Invalid or missing required fields" });
     }
 

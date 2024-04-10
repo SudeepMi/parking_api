@@ -21,7 +21,7 @@ router.put("/:id", authenticate, exitParking);
 
 // router.use(authenticate, authorize);
 
-router.post("/", enterParking);
+router.post("/",authenticate, enterParking);
 router.get("/", getParkings);
 router.get("/knn", getknn);
 router.get("/total", getTotal);
