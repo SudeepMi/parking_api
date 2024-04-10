@@ -2,7 +2,8 @@ import Parking from "../models/Parking.js";
 import ParkingSpot from "../models/ParkingSpot.js";
 import Payment from "../models/Payment.js";
 import Reservation from "../models/Reservation.js";
-import { getDistance } from "geolib";
+import User from "../models/User.js";
+
 
 export const enterParking = async (req, res) => {
   const admin = req.user.userId;
@@ -140,20 +141,10 @@ export const getParkingByUser = async (req, res) => {
   try {
     const userId = req.user.userId;
 
-    const parking = await Parking.find({})
-      .populate({
-        path: "reservation",
-      })
-      .populate("payment");
+    const parking = await User.findById(userId).populate('reservations').exec()
+    
 
-    const filteredParking = parking.filter(
-      (entry) => entry.reservation.customer.toString() === userId
-    );
-    if (filteredParking.length === 0) {
-      return res.status(404).json({ message: "Parking entry not found" });
-    }
-
-    res.status(200).json({ parking: parking });
+    res.status(200).json({ parkings: parking.reservations });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -177,7 +168,6 @@ export const deleteParking = async (req, res) => {
 
 const CustomgetDistance = (userLocation, destination)=>{
   if(destination){
-
     let [u_lat, u_long] = destination.split(",");
     let [d_lat, d_long] = userLocation;
     u_lat = parseFloat(u_lat) * (Math.PI / 180);
@@ -211,8 +201,7 @@ export const getknn = async (req, res) => {
       // Function to find k-nearest neighbors
       function kNearestNeighbors(k, newData) {
         // Calculate distances from newData to all points in parkingSpots
-        const distances = parkingSpots.map((spot) => ({
-        
+        const distances = parkingSpots.map((spot) => spot.coordinates[0] && ({
           distance: CustomgetDistance(newData.coordinates, spot.coordinates[0]),
           ...spot._doc,
         }));
@@ -223,13 +212,13 @@ export const getknn = async (req, res) => {
   
         // Get k-nearest neighbors
         const nearestNeighbors = distances.slice(0, k);
-  
+        
         return nearestNeighbors;
       }
   
       // Example usage
       const newData = { coordinates: userCords?.split(","), label: "user location" };
-      const k = 6;
+      const k = 4;
       const predictedSpots = kNearestNeighbors(k, newData);
   
   
