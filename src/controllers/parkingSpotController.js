@@ -53,6 +53,27 @@ export const getTotalSpots = async (req, res) => {
   }
 };
 
+
+export const NearestParking = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid parkingSpot ID" });
+    }
+
+    const spot = await ParkingSpot.findById(id);
+    if (!spot) {
+      return res.status(404).json({ message: "Parking spot not found" });
+    }
+
+    res.status(200).json({ spot });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching parking spot", error: error.message });
+  }
+};
+
+
 export const getParkingSpot = async (req, res) => {
   try {
     const { id } = req.params;

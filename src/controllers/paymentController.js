@@ -12,9 +12,9 @@ export const createPayment = async (req, res) => {
     let { amount, paymentMethod, parkingId } = req.body;
 
     // Parse amount into a float
-    amount = parseFloat(amount);
+    amount = parseFloat(amount).toString();
 
-    if (!isNaN(amount) || !parkingId) {
+    if (!amount || !parkingId) {
       return res.status(400).json({ error: "Invalid or missing required fields" });
     }
 
@@ -100,6 +100,9 @@ export const updatePayment = async (req, res) => {
 
   // Parse amount into a float
   amount = parseFloat(amount);
+  // if (amount<10){
+  //   amount = 10;
+  // }
 
   if (!amount || isNaN(amount) || !id) {
     return res.status(400).json({ error: "Invalid or missing required fields" });
