@@ -7,6 +7,7 @@ import {
   createParkingSpot,
   deleteParkingSpot,
   getParkingSpot,
+  NearestParking,
   getTotalSpots,
   getParkingSpots,
   updateParkingSpot,
@@ -19,6 +20,7 @@ const router = express.Router();
 router.post("/", authenticate, authorize, createParkingSpot);
 
 router.get("/", getParkingSpots);
+router.get("/NearestParking", NearestParking);
 router.get("/:id", getParkingSpot);
 router.get("/p/total", getTotalSpots);
 
