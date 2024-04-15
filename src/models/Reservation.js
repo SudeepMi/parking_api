@@ -17,6 +17,10 @@ const reservationSchema = new mongoose.Schema(
       ref: "Vehicle",
       required: true,
     },
+    slot_id: {
+      required: true,
+      type: String,
+    },
     startTime: {
       type: Date,
       required: true,
