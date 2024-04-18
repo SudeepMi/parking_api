@@ -23,7 +23,7 @@ export const createParkingSpot = async (req, res) => {
       imageUrls,
       owner: ownerId,
       coordinates,
-      slot_id
+      
     });
 
     await parkingSpot.save();
@@ -82,7 +82,7 @@ export const getParkingSpot = async (req, res) => {
       return res.status(400).json({ message: "Invalid parkingSpot ID" });
     }
 
-    const spot = await ParkingSpot.findById(id);
+    const spot = await ParkingSpot.findById(id).populate('reservations.bike reservations.car')
     if (!spot) {
       return res.status(404).json({ message: "Parking spot not found" });
     }

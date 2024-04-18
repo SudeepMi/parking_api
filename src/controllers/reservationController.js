@@ -8,7 +8,7 @@ import User from "../models/User.js";
 export const createReservation = async (req, res) => {
   try {
     let vehicle;
-    const { parkingSpotId, startTime, endTime, arrivalTime } = req.body;
+    const { parkingSpotId, startTime, endTime, arrivalTime,slot_id } = req.body;
     const customerId = req.user.userId;
 
     if (!parkingSpotId || !startTime || !endTime || !arrivalTime) {
@@ -73,6 +73,7 @@ export const createReservation = async (req, res) => {
       endTime: eT,
       arrivalTime,
       totalCost,
+      slot_id,
     });
 
     if (reservation.arrivalTime <= reservation.startTime) {
